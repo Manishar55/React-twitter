@@ -22,15 +22,15 @@ function Twitter() {
             id: nextId,
             createdAt: new Date()
         }])
-    }, []);
+    }, [tweets]);
 
     //useCallback hook-> it remembers which callback is changing or not changing
     //this useCallback function takes an callback as an argument and takes another argument i.e an array 
     //this array is going be an array of dependencies, inside that array of dependencies you can put some variables
     //it that particular variable change due to any triggered then that callback will be rerenderd 
-    //if any dependencies that you have mentioned is not going to change then this callback will be taken from cashed callback
+    //if any dependencies that you have mentioned is not going to change then this callback will be taken from cashed/memoised callback
 
-    //so first time when you render it then it will cash it and everytime it uses the same cash until or unless any of the 
+    //so first time when you render it then it will cash it and everytime it uses the same cash/memo until or unless any of the 
     //dependencies you mentioned here changes
 
     
@@ -45,12 +45,12 @@ function Twitter() {
           }
         })
       )
-    }, [])
+    }, [tweets])
 
     const sortTweets = useCallback(()=>{
       tweets.sort((t1, t2)=>t2.createdAt.getTime() - t1.createdAt.getTime());
       setTweets([...tweets]);
-    }, [])
+    }, [tweets])
 
   return (
     <>
