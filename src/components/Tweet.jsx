@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../CSS/Tweet.css'
-function Tweet({content, likeCount, createdAt}){
+function Tweet({tweetId, content, likeCount, createdAt, onEdit}){
     const [isEditting, setIsEditting]=useState(false);
    return (
     
@@ -9,11 +9,22 @@ function Tweet({content, likeCount, createdAt}){
             <div className='tweet-edit-wrapper'>
                 <div className="tweet-content">
                    {
-                    (isEditting)?
-                    <input value={content} />:
-                    content
-                   }
+                    (isEditting)?(
+                        <input
+                            type='text'
+                            value={content} 
+                            onChange={(e)=>{
+                                onEdit({
+                                    id:tweetId,
+                                    content: e.target.value,
+                                    likeCount: likeCount,
+                                    createdAt: createdAt
+                                })
+                            }}
+                        />
+                    ):content}
                 </div>
+                
                 <div className='edit-tweet'>
                     <button onClick={()=>setIsEditting(!isEditting)}>
                         {(isEditting)? 'Save' : 'Edit'}
